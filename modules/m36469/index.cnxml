@@ -1,0 +1,17 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Introduction</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m36469</md:content-id>
+  <md:title>Introduction</md:title>
+  <md:abstract/>
+  <md:uuid>fd9f12b2-98c9-4166-af94-8168f437abf2</md:uuid>
+</metadata>
+
+<content>
+  <section id="eip-712"><title>Introduction</title><para id="eip-621">Optical character recognition, the ability to recognize an image of text and convert it to digital format, is a widely studied and well understood.  By applying similar principles, symbols on a sheet of music, can be processed and easily converted to digital form.
+
+</para><para id="eip-486">As motivation for our research, we imagine our algorithm as a framework for a smartphone application, which complements a musician who needs a rendition of a song as a paradigm to emulate. An image taken by the musician is processed and subsequently synthesized into an instrumental piece. </para><para id="eip-369">With no similar application for music notation recognition available in the smartphone market, the creation of such a framework could have a potentially revolutionary impact. We will demonstrate, as a proof a concept, signal processing techniques, such a matched filters, and software strategies, of an object-oriented implementation, for designing such a framework in Matlab.</para></section>
+</content>
+
+</document>

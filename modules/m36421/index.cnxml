@@ -1,0 +1,51 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+
+<title>Overview</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m36421</md:content-id>
+  <md:title>Overview</md:title>
+  <md:abstract/>
+  <md:uuid>3733f704-44bb-43fc-bd89-cf958108e8dc</md:uuid>
+</metadata>
+
+<content>
+  <section id="eip-851"><title>Design Assumptions</title><para id="eip-158">Due to the complexity and proliferation of musical notations, our music notation analysis focuses on a few elementary and widely used musical symbols, providing the foundation for further research.
+</para><list id="eip-183"><item>Perfect Image Orientation: The music notation analysis assumes a preprocessing stage that scales an image of sheet music and corrects orientation.</item>
+<item>Time Signature Independence: Music speed is dependent on both time-signature (e.g. 4-4 time) and temp (e.g. Moderato). Current algorithm implementation assumes a Moderato, 4-4 time, with 120 beats-per-minute.</item>
+<item>Key Signature Independence: The program assumes a preprocessing stage that determines key signature, which then shifts note values by +/- a half note frequency. In this design we assumed the C-major.</item>
+<item>Treble Clef: The program assumes a preprocessing stage that determined the clef as treble clef.</item>
+<item>Common Notations: Notations matches occur with whole, half, quarter, eighth, rests, sharps, and flats.</item>
+</list></section><section id="eip-316"><title>Cross-Correlation Matched Filter Algorithm:</title><para id="eip-644"><list id="Matched-filter"><item>Filters are used to remove unwanted frequency components from a signal, in order to sift out components of interest. In this case we want to determine what segments of a sheet of music have similar frequency content to that of an image of a certain note. In signal processing, a matched filter detects the presence of a known signal in a template signal. Matched filtering is widely used in communications for determining the presence of one signal or another (e.g. the representation of a one vs the representation of a zero in transferring bits). In this case we want to determine what kinds of notes are present in our image and where they are located.</item>
+		<item>There are a number of ways to do matched filtering, one of which is to compute the cross-correlation between the signal you’re looking for and a template signal (the signal in which you’re searching for your signal of interest). Performing a cross-correlation is essentially the same as performing a convolution, but without first “flipping” one of the signals:
+<m:math display="display">
+  <m:ci>y[n]=</m:ci>
+<m:apply>
+
+    <m:sum/>
+    <m:bvar>
+      <m:ci>k</m:ci>
+    </m:bvar>
+    <m:lowlimit>
+      <m:apply>
+        <m:minus/>
+        <m:ci>∞</m:ci>
+      </m:apply>
+    </m:lowlimit>
+    <m:uplimit>
+      <m:ci>∞</m:ci>
+    </m:uplimit>
+    <m:ci>h[k+n]x[k]</m:ci>
+  </m:apply>
+</m:math>
+<newline/> 
+Where y[n] denotes the matched output, h[n] denotes template image, and x[n] denotes the image.
+<newline/> 
+</item>
+<item>
+Performing the 2D cross correlation of an inverted, binarized image (black pixels=1, white pixels=0, with pixels converted to either one or the other by thresholding) of a certain note with the inverted, binarized image of a segment of sheet music yields a matrix wherein the maximum entries correspond to locations on the template image where the similarity between the image of the note and that section of the template image (of the same dimensions) is at a maximum. Hence, by filtering with different note images (i.e. half, quarter, whole) we can determine not only the location of each note relative to the bars (and therefore it’s type: a, b, c, etc.) but also the length of the note (half, quarter, whole, etc.).
+</item></list></para></section><para id="delete_me">
+     <!-- Insert module text here -->
+  </para>
+</content>
+
+</document>

@@ -1,0 +1,25 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Conclusion</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m36404</md:content-id>
+  <md:title>Conclusion</md:title>
+  <md:abstract/>
+  <md:uuid>c1f3570b-bf24-48de-8015-1d5ab9191b28</md:uuid>
+</metadata>
+
+<content>
+  <section id="eip-385"><title>Conclusion</title><para id="eip-737">The ability to provide notation recognition for sheet music appears to be a very manageable and straightforward problem due to the common standardizations in musical notation. Our demonstration show that as a proof of concept, music interpretation and synthesis can be automated by a computer with high accuracy.
+</para><para id="eip-581">By implementing an object oriented design, our program provides a scalable solution to music notation recognition. Our program creates matches for different notation types and can be easily expanded by adding new notation templates with minor modifications to the underlying source code. After music notations are recognized, the applicable parameters provide a framework for transforming the the digitized music into a multitude of applications, such as a synthesized audio file, back to sheet music in a new scale and time signature, or lay the foundations for applications involving analysis of music theory.</para></section><section id="eip-778"><title>Future Work</title><para id="eip-984">Immediate work would be to expand our notation recognition to new music types. While our program is able to detect sharps and flats and our OOP design created modules for these parameters, we have yet to connect the frequency shifts in our code. In terms of program flow, recognizing clefs and key signatures, which can shift the frequencies of the applicable lines, appears to be the next step to provide analysis for the basic sheet music. After this step, the next area of research would be towards accurately recognizing different music notation styles. This might include changing tolerance levels, creating a more generic match template, and perhaps adding another layer of image processing, such as detection of white spaces. In addition, a preprocessing stage that first extracted all music notations, without awareness of type, could improve the speed of the program.</para><para id="eip-420">As the algorithm expands, we recognizing the emphasis may shift towards creating a priority queue and the best framework. For example, in what order is tempo, key signature, and notes scanned and processed. If two notes appear to have a match, which note type receives priority. These design strategies can have an impact on speed and performance, and play a role should this program be implemented on a mobile device, such as an iPhone.</para><para id="eip-355"><title>Note to the reader:</title>While working on this project, we discovered music instrument synthesis is becoming very vibrant and fluid. As a thought experiment, we wonder the possibility of a single musical note being represented by 100 parameters, of 1 byte each. If a 3 minute song has approximately 1000 notes, a song could be processed and stored as a 10 kilobyte file.</para></section><section id="eip-59"><title>References</title><para id="eip-787">McGee, Ryan. "Simple Music in MATLAB." http://www.lifeorange.com/MATLAB/MATLAB_music.htm
+<newline/>
+<newline/>
+"Making Music with MATLAB." Fall 1997, 2nd Quarter http://users.rowan.edu/~shreek/networks1/music.html
+<newline/>
+<newline/>
+"Wind Instruments Synthesis Toolbox" http://iie.fing.edu.uy/~rocamora/wind_synthesis/doc/
+</para></section><para id="delete_me">
+     <!-- Insert module text here -->
+  </para>
+</content>
+
+</document>

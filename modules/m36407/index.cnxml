@@ -1,0 +1,134 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+
+<title>Detailed Procedures</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m36407</md:content-id>
+  <md:title>Detailed Procedures</md:title>
+  <md:abstract/>
+  <md:uuid>32c7fe90-3c05-4fc5-b9af-c61d8ec00cd3</md:uuid>
+</metadata>
+
+<content>
+  <section id="eip-446"><title>Object-Oriented Design</title><para id="eip-788">Each note has a set of information relevant to it, such as pitch, octave, frequency, etc. We use object-oriented design to represent a note, with the following parameters:</para><table id="eip-687" summary="Description"><title>Note class properties</title>
+<tgroup cols="2"><tbody>
+  <row>
+    <entry><emphasis>Property</emphasis></entry>
+    <entry><emphasis>Description</emphasis></entry>
+  </row>
+  <row>
+    <entry>Vertical Position</entry>
+    <entry>Position from top of the page.</entry>
+  </row>
+  <row>
+    <entry>Horizontal Position</entry>
+    <entry>Position from left of the page.</entry>
+  </row>
+  <row>
+    <entry>Type</entry>
+    <entry>Whole, half, quarter, eighth notes.</entry>
+  </row>
+  <row>
+    <entry>Pitch</entry>
+    <entry>Note, i.e. A, B, C, D</entry>
+  </row>
+  <row>
+    <entry>Octave</entry>
+    <entry>Octave in relationship to fifth octave.</entry>
+  </row>
+  <row>
+    <entry>Frequency</entry>
+    <entry>Frequency in Hz.</entry>
+  </row>
+  <row>
+    <entry>Length</entry>
+    <entry>Time duration in seconds.</entry>
+  </row>
+  <row>
+    <entry>Accidental</entry>
+    <entry>Whether a sharp or flat is present.</entry>
+  </row>
+</tbody>
+
+
+
+
+
+</tgroup>
+</table><para id="eip-891">Above all else, implementing an object-oriented design gives room for future development. For example, lines in a stanza, clefs, key signatures, and accidentals can all be abstracted to objects.  This will allow modification to the original music, such as changing the key signature, adding or removing notes.  
+<newline/>
+
+This means that:
+<newline/>
+The music can be edited to be drastically different from the original.
+<newline/>
+The music can be output not just as sound, but also to a newly edited sheet of music.
+</para></section><section id="eip-602"><title>Tolerance Levels</title><para id="eip-151">Because of noise, note symbols required a threshold level to approximate the match. A symbol was matched if it was over 0.9 of the expected value. Due to the different shapes of notes, our program was tailored to have different tolerance levels for specific notes. These tolerance levels were set by determining the highest tolerance level that was able to discover all notes for a variety of test cases. These test cases involved placing a single note on all line positions. Pre-processing stages, such as removing inverting the pixel values of stanza lines, improved tolerance requirements.
+</para></section><section id="eip-776"><title>System Flow</title><para id="eip-304"><figure id="eip-id1167076818037"><media id="systemflow" alt="System Flow">
+  <image mime-type="image/jpeg" src="../../media/SystemFlow.png"/>
+</media>
+<caption>System Design Flow</caption></figure>
+</para><para id="eip-726"><list id="eip-id1168121167487"><title>System Flow</title><item><emphasis>a. Load Image: </emphasis>An image of sheet music is loaded and pixels are converted to 256-bit values.</item>
+  <item>
+<list id="eip-id1168121432064"><title>b. Preprocessing Stage:</title><item>The image is normalized to black and white pixels. Pixels appearing more black are give a value of 1 and white pixels are given a value of 0.</item>
+  <item>To determine a note’s pitch, the location relative to the line position is required. The line position of a stanza (5 lines) of music is determined by  averaging pixel values across the horizontal direction. Because an individual line may incorporate multiple pixel values in the vertical direction, the stanza line positions are determined by groups of nearest neighbors. The line positions are determined by taking the average point <m:math display="display">
+  <m:ci>μ</m:ci>
+</m:math> in horizontal direction.
+
+In our implementation, the value of the white pixel, w = 0, and the black pixel, b = 1. Therefore, the average value can be found with the following formula: 
+
+<m:math display="display">
+  <m:apply>
+    <m:eq/>
+    <m:apply>
+      <m:divide/>
+      <m:apply>
+        <m:plus/>
+        <m:ci>w</m:ci>
+        <m:ci>b</m:ci>
+      </m:apply>
+      <m:cn>2</m:cn>
+    </m:apply>
+    <m:cn>0.5</m:cn>
+  </m:apply>
+</m:math>
+<newline/>
+<m:math display="display">
+  <m:apply>
+    <m:lt/>
+    <m:ci>μ</m:ci>
+    <m:apply>
+      <m:divide/>
+      <m:apply>
+        <m:plus/>
+        <m:ci>w</m:ci>
+        <m:ci>b</m:ci>
+      </m:apply>
+      <m:cn>2</m:cn>
+    </m:apply>
+  </m:apply>
+</m:math>
+, Where <m:math display="display">
+  <m:ci>μ</m:ci>
+</m:math> represents the location of a stanza.
+</item>
+  <item>Removing the stanzas from the image makes it easier to match individual notes. Black pixels are converted to white pixels along the stanza line locations, when a musical symbol is not present. A stanza section is not converted to a white pixel if a black pixel exits at the Average line width +/-1 from the line center.</item>
+</list> 
+</item>
+<item>
+<list id="eip-id5636545"><title>c. Image Processing Stage:</title><item>Matched Filter Cross-Correlation: In this case we want to determine what segments of a sheet of music have similar frequency content to that of an image of a certain note.  Performing the 2D cross correlation of an inverted, binarized image (black pixels=1, white pixels=0, with pixels converted to either one or the other by thresholding) of a certain note with the inverted, binarized image of a segment of sheet music yields a matrix wherein the maximum entries correspond to locations on the template image where the similarity between the image of the note and that section of the template image (of the same dimensions) is at a maximum. Hence, by filtering with different note images (i.e. half, quarter, whole) we can determine not only the location of each note relative to the bars (and therefore it’s type: a, b, c, etc.) but also the length of the note (half, quarter, whole, etc.). Because of different standardizations in notations, each note type is given its own unique tolerance level, subsequently providing clusters denoting the peaks of the cross-correlation match with an individual note template.
+<figure id="eip-id1502601"><media id="filter" alt="Eighth Filter">
+  <image mime-type="image/jpeg" src="../../media/eighth.jpg"/>
+</media>
+<caption>Matched Filter Template for Eight Note</caption></figure>
+
+</item>
+
+  <item>Redundancy Checker: The correlation cluster locations, provided by the  matched filter output, are averaged to find the center of the cluster. Before finding the cluster centers, the cluster groups must be found. A starting point, signifying the start of a new cluster, is created from the list of possible locations. This region is expanded by looking at nearest neighbors with a specific distance, approximately 1/4 the distance between two line stanzas, from the edge of the cluster. The cluster continues to expand if points from the possible locations are within the specified distance of the edges of the cluster. If no new points can be added to the cluster region, the center of this cluster region is determined by averaging the x and y positions, and the redundancy checker continues to check the remaining possible locations.</item></list> 
+</item>
+<item><emphasis>d. Output Tune: </emphasis>The notes and other types of objects are concatenated to form a list, which is then sent to a music synthesizer program.  Synthesis of the musical output from sheet music is complemented by the Wind Instruments Synthesis Toolbox, complements of El Instituto de Ingeniería Eléctrica. This toolbox synthesizes a variety of instruments for specific lengths and frequencies.</item>
+</list> </para></section><para id="delete_me"/>
+</content>
+
+
+
+</document>

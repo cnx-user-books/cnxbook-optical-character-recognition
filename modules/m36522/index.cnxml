@@ -1,0 +1,57 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Results</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m36522</md:content-id>
+  <md:title>Results</md:title>
+  <md:abstract/>
+  <md:uuid>d7b33d95-a7c2-48b7-a06e-28e0da2db4d6</md:uuid>
+</metadata>
+
+<content>
+  <section id="eip-294"><title>Matched-Filtering</title><para id="eip-496">Our program was tailored to work flawlessly on our self-generated sheet music.  Under our provided boundary conditions, all music notes were correctly identified and converted into the data parameters of length, octave, and frequency.
+<newline/>
+The first picture is a self-generated unprocessed sheet of music that we intend to analyze:
+<newline/>
+<media id="mixed1" alt="mixed">
+	   
+  <image mime-type="image/jpeg" src="../../media/mixed" height="250" width="600"/>
+		 
+</media>
+<newline/>
+The second picture shows the correlation gradient after applying a whole notes matched filter. The red X's indicate where the hits are:
+<newline/>
+<newline/>
+<media id="xcorr1" alt="xcorr">
+	   
+  <image mime-type="image/jpeg" src="../../media/xcorr" height="250" width="600"/>
+		 
+</media>
+<newline/>
+<newline/>
+Finally, the third picture shows the hits back on the original sheet of music:
+<newline/>
+<newline/>
+<media id="detected1" alt="detected1">
+	   
+  <image mime-type="image/jpeg" src="../../media/detected1" height="250" width="600"/>
+		 
+</media>
+<newline/>
+<newline/>
+We also tried our program on a sheet of sheet music that we scan into the computer.  Before running our program on the image we made sure the staffs were oriented correctly and that the image was close to the same scale as our self-generated pictures.  The following picture shows that our program shows hits for quarter notes accurately:
+<newline/>
+<newline/>
+<media id="oldmc" alt="oldmc">
+	   
+  <image mime-type="image/jpeg" src="../../media/OldMcDonald" height="250" width="600"/>
+		 
+</media>
+<newline/>
+<newline/>
+As a note to the reader, our program has trouble recognizing eighth-note tails, but they were found when the tolerance level was lowered.</para></section><para id="delete_me">
+     <!-- Insert module text here -->
+  </para>
+</content>
+
+</document>
