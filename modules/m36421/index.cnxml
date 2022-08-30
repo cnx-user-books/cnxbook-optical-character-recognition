@@ -17,7 +17,7 @@
 <item>Common Notations: Notations matches occur with whole, half, quarter, eighth, rests, sharps, and flats.</item>
 </list></section><section id="eip-316"><title>Cross-Correlation Matched Filter Algorithm:</title><para id="eip-644"><list id="Matched-filter"><item>Filters are used to remove unwanted frequency components from a signal, in order to sift out components of interest. In this case we want to determine what segments of a sheet of music have similar frequency content to that of an image of a certain note. In signal processing, a matched filter detects the presence of a known signal in a template signal. Matched filtering is widely used in communications for determining the presence of one signal or another (e.g. the representation of a one vs the representation of a zero in transferring bits). In this case we want to determine what kinds of notes are present in our image and where they are located.</item>
 		<item>There are a number of ways to do matched filtering, one of which is to compute the cross-correlation between the signal you’re looking for and a template signal (the signal in which you’re searching for your signal of interest). Performing a cross-correlation is essentially the same as performing a convolution, but without first “flipping” one of the signals:
-<m:math display="display">
+<m:math>
   <m:ci>y[n]=</m:ci>
 <m:apply>
 

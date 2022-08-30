@@ -70,13 +70,13 @@ The music can be output not just as sound, but also to a newly edited sheet of m
 </para><para id="eip-726"><list id="eip-id1168121167487"><title>System Flow</title><item><emphasis>a. Load Image: </emphasis>An image of sheet music is loaded and pixels are converted to 256-bit values.</item>
   <item>
 <list id="eip-id1168121432064"><title>b. Preprocessing Stage:</title><item>The image is normalized to black and white pixels. Pixels appearing more black are give a value of 1 and white pixels are given a value of 0.</item>
-  <item>To determine a note’s pitch, the location relative to the line position is required. The line position of a stanza (5 lines) of music is determined by  averaging pixel values across the horizontal direction. Because an individual line may incorporate multiple pixel values in the vertical direction, the stanza line positions are determined by groups of nearest neighbors. The line positions are determined by taking the average point <m:math display="display">
+  <item>To determine a note’s pitch, the location relative to the line position is required. The line position of a stanza (5 lines) of music is determined by  averaging pixel values across the horizontal direction. Because an individual line may incorporate multiple pixel values in the vertical direction, the stanza line positions are determined by groups of nearest neighbors. The line positions are determined by taking the average point <m:math>
   <m:ci>μ</m:ci>
 </m:math> in horizontal direction.
 
 In our implementation, the value of the white pixel, w = 0, and the black pixel, b = 1. Therefore, the average value can be found with the following formula: 
 
-<m:math display="display">
+<m:math>
   <m:apply>
     <m:eq/>
     <m:apply>
@@ -92,7 +92,7 @@ In our implementation, the value of the white pixel, w = 0, and the black pixel,
   </m:apply>
 </m:math>
 <newline/>
-<m:math display="display">
+<m:math>
   <m:apply>
     <m:lt/>
     <m:ci>μ</m:ci>
@@ -107,7 +107,7 @@ In our implementation, the value of the white pixel, w = 0, and the black pixel,
     </m:apply>
   </m:apply>
 </m:math>
-, Where <m:math display="display">
+, Where <m:math>
   <m:ci>μ</m:ci>
 </m:math> represents the location of a stanza.
 </item>
